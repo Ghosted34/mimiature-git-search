@@ -7,6 +7,7 @@ const { Provider } = AppContext;
 export const AppProvider = ({ children }) => {
   const [page, setPage] = useState(1);
   const [repos, setRepos] = useState([]);
+  const [searchRepos, setSearchRepos] = useState([]);
   const [perPage, setPerPage] = useState(5);
   const [user, setUser] = useState();
   const [isLoadingUser, setIsLoadingUser] = useState(false);
@@ -18,13 +19,14 @@ export const AppProvider = ({ children }) => {
     }
     const repos = async () => {
       try {
-        setIsLoadingUser(true);
+        setIsLoadingRepos(true);
         const res = await getRepoes(user.login);
         setRepos(res);
+        setSearchRepos(res);
       } catch (error) {
         console.error(error);
       } finally {
-        setIsLoadingUser(false);
+        setIsLoadingRepos(false);
       }
     };
     repos();
@@ -33,13 +35,13 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     const user = async () => {
       try {
-        setIsLoadingRepos(true);
+        setIsLoadingUser(true);
         const res = await getUser();
         setUser(res.data);
       } catch (error) {
         console.error(error);
       } finally {
-        setIsLoadingRepos(false);
+        setIsLoadingUser(false);
       }
     };
     user();
@@ -51,11 +53,14 @@ export const AppProvider = ({ children }) => {
         page,
         setPage,
         repos,
+        setRepos,
         perPage,
         setPerPage,
         user,
         isLoadingRepos,
         isLoadingUser,
+        searchRepos,
+        setSearchRepos,
       }}
     >
       {children}

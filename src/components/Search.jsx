@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { AppContext } from "../context/searchContext.js";
 
 const Search = () => {
+  const { setSearchRepos, repos } = useContext(AppContext);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleChange = (event) => {
+    event.preventDefault();
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const res = repos.filter((repo) => repo.name === searchTerm);
+    setSearchRepos(res);
+    if (searchTerm === "") {
+      setSearchRepos(repos);
+    }
+  };
+
   return (
-    <form className="max-w-md">
+    <form className="w-full" onSubmit={handleSubmit}>
       <label
         htmlFor="repo-search"
         className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -31,8 +50,8 @@ const Search = () => {
           type="search"
           id="repo-search"
           className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Search Mockups, Logos..."
-          required
+          placeholder="Search Repo"
+          onChange={handleChange}
         />
         <button
           type="submit"
