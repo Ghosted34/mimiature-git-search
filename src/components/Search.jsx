@@ -1,10 +1,13 @@
 import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/searchContext.js";
 
 const Search = () => {
   const { setSearchRepos, repos } = useContext(AppContext);
 
   const [searchTerm, setSearchTerm] = useState("");
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -18,10 +21,14 @@ const Search = () => {
     if (searchTerm === "") {
       setSearchRepos(repos);
     }
+    navigate("/repoes");
   };
 
   return (
-    <form className="w-full" onSubmit={handleSubmit}>
+    <form
+      className="w-full shadow-md hover:shadow-2xl rounded-lg hover:rounded-2xl"
+      onSubmit={handleSubmit}
+    >
       <label
         htmlFor="repo-search"
         className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"

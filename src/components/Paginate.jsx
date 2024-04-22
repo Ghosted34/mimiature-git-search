@@ -34,11 +34,11 @@ const Paginate = ({ perPage, repos }) => {
 
   const Items = ({ repos }) => {
     return (
-      <>
+      <section className="p-8">
         {repos.map((repo) => (
           <RepoTab key={repo.id} repo={repo} />
         ))}
-      </>
+      </section>
     );
   };
 

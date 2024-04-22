@@ -8,17 +8,27 @@ export const router = createBrowserRouter([
     element: <Layout />,
     path: "/",
     children: [
-      { path: "/", element: <Home /> },
       {
-        path: "repoes",
-        element: <List />,
-      },
-      {
-        path: "repoes/:name",
-        element: <Repo />,
+        children: [
+          { path: "/", element: <Home /> },
+          {
+            path: "repoes",
+            element: <List />,
+          },
+          {
+            path: "repoes/:name",
+            element: <Repo />,
+          },
+        ],
+        errorElement: <ErrorPage />,
       },
     ],
-    errorElement: <ErrorPage />,
+
+    errorElement: (
+      <Layout>
+        <ErrorPage />
+      </Layout>
+    ),
   },
 ]);
 
