@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/searchContext.js";
 
@@ -16,7 +16,7 @@ const Search = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const res = repos.filter((repo) => repo.name === searchTerm);
+    const res = repos.filter((repo) => repo.name.includes(searchTerm));
     setSearchRepos(res);
     if (searchTerm === "") {
       setSearchRepos(repos);

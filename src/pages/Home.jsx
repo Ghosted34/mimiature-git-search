@@ -4,7 +4,6 @@ import { AppContext } from "../context/searchContext";
 
 const Home = () => {
   const { user, isLoadingUser } = useContext(AppContext);
-  console.log(user);
 
   if (isLoadingUser || !user) {
     return <p>Loading</p>;
