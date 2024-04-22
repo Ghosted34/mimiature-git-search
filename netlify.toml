@@ -1,0 +1,12 @@
+# netlify.toml
+
+# Build settings
+[build]
+  # The build command to run before deploying
+  command = "npm run build"
+
+  # The directory to publish after building
+  publish = "build/"
+
+[functions]
+  node_bundler = "esbuild"
